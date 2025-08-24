@@ -6,8 +6,7 @@ const postData = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const res = await axios.post(
-        "https://author-book-u7or.onrender.com/submit",
-        data
+        "https://author-book-u7or.onrender.com/submit",data
       );
       console.log(res.data);
       return res.data;

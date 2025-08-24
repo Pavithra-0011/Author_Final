@@ -5,6 +5,17 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(title="Book Author API")
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173", 
+        "https://author-book-frontend.onrender.com" 
+    ], 
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.include_router(author_router)
 app.include_router(book_router)
 

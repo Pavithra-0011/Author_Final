@@ -3,10 +3,13 @@ import { useState } from 'react'
 import html2canvas from "html2canvas";
 import { useRef } from 'react'
 import { SketchPicker } from "react-color";
+import { useDispatch } from "react-redux";
+import postData from '../../Redux/action/action.jsx'
 import './upload.css'
 
 function UploadBook() {
     const [error, setError] = useState("");
+    const dispatch = useDispatch();
     const [font, setFont] = useState("Arial");
     const [position, setPosition] = useState("");
     const [bgColor, setBgColor] = useState("#d3d3d3");
@@ -91,6 +94,7 @@ function UploadBook() {
   
    const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(postData(data));
     console.log("Final Data:", data);
   };
 

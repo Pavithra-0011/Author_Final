@@ -7,11 +7,12 @@ const postData = createAsyncThunk(
     async(data, {isReisRejectedWithValue}) =>
     {
         try{
-            const res = await axios.post('https://jsonplaceholder.typicode.com/posts', data)
+            const res = await axios.post('https://author-book-u7or.onrender.com', data)
+            console.log(res.data)
             return res.data
         }
         catch (err){
-            return isReisRejectedWithValue(err.message)
+            return isRejectedWithValue(err.message)
         }   
     }
 )

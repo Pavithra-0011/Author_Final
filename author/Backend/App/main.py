@@ -6,9 +6,9 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI(title="Book Author API")
 origins = [
     "http://localhost:5173",
-    "https://vercel.com/pavithras-projects-e0dd04b8/author-book-rj6o/9pCoQhvKV6tP4b73rH7PMY2MTdBB",
-    "https://author-book-rj6o.vercel.app/",
-    "https://author-book-rj6o-8hf2tnsde-pavithras-projects-e0dd04b8.vercel.app/"
+    # "https://vercel.com/pavithras-projects-e0dd04b8/author-book-rj6o/9pCoQhvKV6tP4b73rH7PMY2MTdBB",
+    "https://author-book-rj6o.vercel.app",
+    # "https://author-book-rj6o-8hf2tnsde-pavithras-projects-e0dd04b8.vercel.app/"
     
 ]
 

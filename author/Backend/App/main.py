@@ -27,6 +27,9 @@ app.include_router(book_router)
 def root():
     return {"message": "Welcome to Book Author API"}
 
+@app.post("/submit") 
+def submit_data(data: dict): 
+    return {"received": data}
 
 if __name__ == "__main__":
     import uvicorn

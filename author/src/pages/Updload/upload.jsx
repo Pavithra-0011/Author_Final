@@ -94,7 +94,13 @@ function UploadBook() {
   
    const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(postData(data));
+    const file = data.pdf;
+
+    if (!file) {
+    alert("Please select a PDF file");
+    return;
+  }
+    dispatch(postData({ data, file }));
     console.log("Final Data:", data);
   };
 

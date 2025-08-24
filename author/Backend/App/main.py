@@ -4,13 +4,14 @@ from App.routes.book_route import router as book_router
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(title="Book Author API")
+origins = [
+    "http://localhost:5173",  # Your React dev server
+    "https://your-frontend-domain.com"  # Add production frontend later
+]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173", 
-        "https://author-book-frontend.onrender.com" 
-    ], 
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

@@ -1,12 +1,40 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, UploadFile, File, Form
 from App.crud import create_book, get_books
+import shutil
+import os
+from uuid import uuid4
 
 router = APIRouter(prefix="/books", tags=["Books"])
 
+UPLOAD_FOLDER = "uploads"
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
 @router.post("/")
-def add_book(book: dict):
+def add_book(
+    title: str = Form(...),
+    author: str = Form(...),
+    genre: str = Form(...),
+    price: float = Form(...),
+    description: str = Form(...),
+    pdf_file: UploadFile = File(...)
+):
     try:
-        created_book = create_book(book)
+        # Save PDF
+        filename = f"{uuid4()}_{pdf_file.filename}"
+        file_path = os.path.join(UPLOAD_FOLDER, filename)
+        with open(file_path, "wb") as f:
+            shutil.copyfileobj(pdf_file.file, f)
+
+        book_data = {
+            "title": title,
+            "author": author,
+            "genre": genre,
+            "price": price,
+            "description": description,
+            "pdf_path": file_path
+        }
+
+        created_book = create_book(book_data)
         return {"message": "Book created successfully", "book": created_book}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))

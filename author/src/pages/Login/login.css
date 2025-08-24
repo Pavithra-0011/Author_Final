@@ -1,0 +1,63 @@
+.login-container{
+    /* Responsive Background */
+    height: 100dvh;
+    max-width: 100dvw;
+    background-image: url("C:\Users\HP\Desktop\Book_Author\author\src\assets\login_bg.jpg");
+    background-size: cover;
+    object-fit: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+
+}
+
+
+.Login_form{
+    width: min(90%, 350px);
+    padding: min(1em, 3%);
+    height: min(450px, 80vh);
+    background-color: white;
+    border-radius: 20px;
+
+    /* box-sizing: border-box; */
+}
+
+.internal_box{
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    padding: min(12px, 2%);
+    /* background-color: tomato; */
+    div h2{
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        font-size: clamp(1.4rem, calc(3vw + 1rem), 2rem);
+        font-weight: 400;
+        color: black;
+        margin-bottom: min(10px, 2%);
+    }
+}
+.input_box{
+    height: 30%;
+    margin-top: 70px;  
+    box-sizing: border-box;
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;  
+    justify-content: space-between;
+    /* align-items: center; */
+}
+.button_box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+}
+.login_register{
+    margin-top: 20px;
+    font-size: clamp(1rem, calc(1.5vw + 1rem), 2.1rem);
+}

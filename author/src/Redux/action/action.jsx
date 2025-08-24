@@ -15,7 +15,7 @@ const postData = createAsyncThunk(
 
       
       const res = await axios.post(
-        "https://author-book-u7or.onrender.com/submit",
+        "https://author-book-u7or.onrender.com/books/",
         formData,
         {
           headers: {

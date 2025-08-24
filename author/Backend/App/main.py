@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from App.routes.author_route import router as author_router
 from App.routes.book_route import router as book_router
 from fastapi.middleware.cors import CORSMiddleware
@@ -20,11 +21,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# --- Include routers ---
+
+app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
+ 
+ 
 app.include_router(author_router)
 app.include_router(book_router)
 
-# --- Root route ---
+
+
 @app.get("/")
 def root():
     return {"message": "Welcome to Book Author API"}

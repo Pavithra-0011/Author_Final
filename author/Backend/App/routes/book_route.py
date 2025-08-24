@@ -19,7 +19,11 @@ def add_book(
     pdf_file: UploadFile = File(...)
 ):
     try:
-        # Save PDF
+        
+        if not pdf_file.filename.lower().endswith(".pdf"):
+            raise HTTPException(status_code=400, detail="Only PDF files are allowed")
+
+        
         filename = f"{uuid4()}_{pdf_file.filename}"
         file_path = os.path.join(UPLOAD_FOLDER, filename)
         with open(file_path, "wb") as f:
@@ -31,11 +35,13 @@ def add_book(
             "genre": genre,
             "price": price,
             "description": description,
-            "pdf_path": file_path
+            "pdf_filename": filename,
+            "pdf_url": f"/uploads/{filename}"
         }
 
         created_book = create_book(book_data)
         return {"message": "Book created successfully", "book": created_book}
+
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 

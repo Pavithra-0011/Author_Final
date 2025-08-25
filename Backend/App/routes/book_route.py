@@ -16,6 +16,8 @@ def add_book(
     genre: str = Form(...),
     price: float = Form(...),
     description: str = Form(...),
+    back_cover: str = Form(None),
+    published_date: str = Form(None),
     pdf_file: UploadFile = File(...)
 ):
     try:
@@ -36,7 +38,9 @@ def add_book(
             "price": price,
             "description": description,
             "pdf_filename": filename,
-            "pdf_url": f"/uploads/{filename}"
+            "pdf_url": f"/uploads/{filename}",
+            "back_cover": back_cover,
+            "published_date": published_date,
         }
 
         created_book = create_book(book_data)

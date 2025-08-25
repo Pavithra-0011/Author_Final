@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import html2canvas from "html2canvas";
 import { SketchPicker } from "react-color";
 import { useDispatch } from "react-redux";
@@ -27,7 +27,7 @@ function UploadBook() {
         price: 0,
         description: '',
         pdf: null,
-        image:null,
+        image: null,
         date: new Date()
     })
     
@@ -50,6 +50,13 @@ function UploadBook() {
     "bottom-right": { display: "flex", justifyContent: "flex-end", alignItems: "end",},
   };
 
+  useEffect(() => {
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    if (loggedInUser?.username) {
+        setData(prev => ({ ...prev, author: loggedInUser.username }));
+    }
+}, []);
+
     const handleFileChange = (e) => {
     const file = e.target.files[0];
 
@@ -69,12 +76,36 @@ function UploadBook() {
     }
   };
 
+
+
+
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file && file.type.startsWith("image/")) {
-      setBgImage(URL.createObjectURL(file));
-    }
+  const file = e.target.files[0];
+  if (!file || !file.type.startsWith("image/")) return;
+
+  setBgImage(URL.createObjectURL(file));
+
+  const reader = new FileReader();
+  reader.onloadend = () => {
+    setData(prev => ({ ...prev, image: reader.result }));
   };
+  reader.readAsDataURL(file);
+};
+
+
+
+  const handleFileChanges = (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  setBgImage(URL.createObjectURL(file));
+
+  const reader = new FileReader();
+  reader.onloadend = () => {
+    setBook(prev => ({ ...prev, image: reader.result }));
+  };
+  reader.readAsDataURL(file);
+};
 
   const handleButtonClick = () => {
     fileInputRef.current.click();
@@ -122,7 +153,7 @@ function UploadBook() {
     alert("Please select a PDF file");
     return;
   }
-  if (data.pdf.size > 20 * 1024 * 1024) { // 20MB limit
+  if (data.pdf.size > 20 * 1024 * 1024) { 
     alert("PDF must be less than 20MB");
     return;
   }
@@ -141,8 +172,14 @@ function UploadBook() {
         ...prev,
         image: imageData
       }));
+      
+      const finalData = {
+    ...data,
+    back_cover: imageData,
+    published_date: new Date().toISOString()
+  };
 
-      dispatch(postData({ data: { ...data, image: imageData }, file: data.pdf }));
+      dispatch(postData({ data: finalData, file: data.pdf }));
       console.log("Final Data:", { ...data, image: imageData });
       
     } else {
@@ -196,7 +233,7 @@ function UploadBook() {
       <div><h3>UPLOAD YOUR BOOK HERE</h3></div>
       <div className='metadata'>
         <div className='ip_box'><input placeholder='Title' name='title' value={data.title} onChange={handleChange}/></div>
-        <div className='ip_box'><input placeholder='Author' name='author' value={data.author} onChange={handleChange}/></div>
+        <div className='ip_box'><input placeholder='Author' name='author' value={data.author} onChange={handleChange} disabled/></div>
         <div className='ip_box'><input placeholder='Genre' name='genre' value={data.genre} onChange={handleChange}/></div>
       </div>
 
@@ -299,7 +336,7 @@ function UploadBook() {
                   />)}
 
                 <input type="file" accept="image/*" ref={fileInputRef} style={{ display: "none" }} onChange={handleImageChange}/>
-                <button className='common_button' style={{margin:'10px'}}  onClick={handleButtonClick}>Select BG Img</button>
+                    <button className='common_button' style={{margin:'10px'}}  onClick={handleButtonClick}>Select BG Img</button>
             </div>
 
         </div>
@@ -320,7 +357,9 @@ function UploadBook() {
         </div>
         <p>{error}</p>
       </div>
+      <div style={{width:'100%', height:'fit-content',marginTop:'13px', display:'flex', justifyContent:'center', alignItems:'center'}}>
       <button className='common_button' onClick={handleSubmit}>SUBMIT</button>
+      </div>
 
    </div>
     

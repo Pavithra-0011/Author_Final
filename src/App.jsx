@@ -4,6 +4,7 @@ import LoginPage from './pages/Login/login.jsx'
 import Layout from './components/Layout/layout.jsx'
 import UploadBook from './pages/Updload/upload.jsx'
 import {Routes, Route} from 'react-router-dom'
+import PrivateRoute from './private_route.jsx'
 import DashboardPage from './pages/DashBoard/dashboard.jsx'
 import './App.css'
 
@@ -13,7 +14,11 @@ function App() {
     <>
       <Routes>
         <Route path='/' element={<LoginPage/>}/>
-        <Route path ='welcomepage' element={<Layout/>}>
+        <Route path ='welcomepage' element={
+          <PrivateRoute>
+             <Layout/>
+          </PrivateRoute>
+          }>
           <Route path='dashboard' element={<DashboardPage/>}/>
           <Route path='uploadbook' element={<UploadBook/>}/>
         </Route>

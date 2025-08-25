@@ -9,8 +9,8 @@ function Layout() {
     const navigate = useNavigate
 
     const [dashboard, setDashboard] = useState({
-        dashboard: true,
-        uploadbook: false
+        dashboard: false,
+        uploadbook: true,
     })
 
     const [authorName, setAuthorName] = useState("")

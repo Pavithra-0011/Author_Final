@@ -12,7 +12,17 @@ const postData = createAsyncThunk(
       formData.append("price", data.price?.toString() || "0");
       formData.append("description", data.description);
       formData.append("pdf_file", file); 
+      // formData.append("back_cover", data.image)
+      // formData.append("published_date", publishedDate);
+      if (data.image) {
+        formData.append("back_cover", data.image);
+      }
 
+      if (data.date) {
+        const publishedDate =
+          data.date instanceof Date ? data.date.toISOString() : data.date;
+        formData.append("published_date", publishedDate);
+      }
       
       const res = await axios.post(
         "https://author-book-u7or.onrender.com/books/",

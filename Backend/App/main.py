@@ -4,7 +4,7 @@ from App.routes.author_route import router as author_router
 from App.routes.book_route import router as book_router
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-import openai
+# import openai
 from App.config import OPENAI_API_KEY
 
 app = FastAPI(title="Book Author API")
@@ -12,6 +12,8 @@ app = FastAPI(title="Book Author API")
 # --- CORS setup ---
 origins = [
     "http://localhost:5173",
+    "http://localhost:5174",
+    "http://localhost:5175"
     "https://author-book-rj6o.vercel.app",
 ]
 
@@ -31,7 +33,7 @@ app.include_router(author_router)
 app.include_router(book_router)
 
 # Set OpenAI API key
-openai.api_key = OPENAI_API_KEY
+# openai.api_key = OPENAI_API_KEY
 
 @app.get("/")
 def root():
@@ -55,21 +57,21 @@ async def submit_book(book: Book):
     return {"message": "Book submitted successfully", "data": book}
 
 # --- Generate AI description ---
-@app.post("/generate-description")
-async def generate_description(book: BookRequest):
-    try:
-        response = openai.chat.completions.create(
-            model="gpt-4o-mini",  # or "gpt-4o" if you have access
-            messages=[
-                {"role": "system", "content": "You are a creative book blurb generator."},
-                {"role": "user", "content": f"Generate an engaging book description for a {book.genre} book titled '{book.title}'."}
-            ],
-            max_tokens=150
-        )
-        description = response.choices[0].message.content
-        return {"description": description}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+# @app.post("/generate-description")
+# async def generate_description(book: BookRequest):
+#     try:
+#         response = openai.chat.completions.create(
+#             model="gpt-4o-mini",  # or "gpt-4o" if you have access
+#             messages=[
+#                 {"role": "system", "content": "You are a creative book blurb generator."},
+#                 {"role": "user", "content": f"Generate an engaging book description for a {book.genre} book titled '{book.title}'."}
+#             ],
+#             max_tokens=150
+#         )
+#         description = response.choices[0].message.content
+#         return {"description": description}
+#     except Exception as e:
+#         raise HTTPException(status_code=500, detail=str(e))
 
 # --- Run server locally ---
 if __name__ == "__main__":

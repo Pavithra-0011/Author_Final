@@ -1,11 +1,24 @@
 from App.database import db
 from App.models.author import Author
 from App.models.book import Book
+from datetime import datetime, timezone
 
 #----------BOOKS-------------
 def create_book(book: dict):
+    from datetime import datetime, timezone
+    
+    if "image" in book:
+        book["back_cover"] = book.pop("image")
+    
+    if "published_date" in book and isinstance(book["published_date"], str):
+        book["published_date"] = datetime.fromisoformat(book["published_date"])
+    elif "published_date" not in book:
+        book["published_date"] = datetime.now(timezone.utc)
+    
     result = db.Book.insert_one(book)
     return str(result.inserted_id)
+
+
 
 def get_books():
     """Return all books"""

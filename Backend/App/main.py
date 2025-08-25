@@ -15,6 +15,7 @@ origins = [
     "http://localhost:5174",
     "http://localhost:5175"
     "https://author-book-rj6o.vercel.app",
+    "https://author-final-8kqi.vercel.app/"
 ]
 
 app.add_middleware(

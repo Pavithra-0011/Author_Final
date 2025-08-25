@@ -1,0 +1,97 @@
+.Layout{
+    height: 100dvh;
+    width: 100dvw;
+    padding: min(1em, 3%);
+    background-image: url("C:\Users\HP\Desktop\Book_Author\author\src\assets\Inner_Bg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    object-fit: cover;
+    box-sizing: border-box;
+}
+
+.navigation{
+    height: 60px;
+    width: 90%;
+    background-color: aliceblue;
+    border-top-left-radius: 70px;
+    border-bottom-right-radius: 70px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    nav{
+        height: 100%;
+        width: min(32%, 35%);
+        margin: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: min(1em, 1%);
+        box-sizing: border-box;
+    }
+    
+    nav ul{
+        margin: 0px;
+        padding: 0px;
+        display: flex;
+        height: 50%;
+        width: 100%;
+        justify-content: space-evenly;
+        align-items: center;
+        /* background-color: tomato; */
+    }
+    nav ul li{
+        list-style-type: none;
+        margin: 0px;
+        font-size: clamp(0.3rem, calc(0.5vw + 0.5rem), 1rem);
+        font-weight: 600;
+        cursor: pointer;
+        box-sizing: border-box;
+        /* background-color: red; */
+    }
+    li a{
+        flex: 1; 
+        text-align: center;
+        /* background-color:pink; */
+    }
+    a {
+        flex: 1; 
+      text-decoration: none; 
+      color: black;}
+    li:last-child {
+      border-left: none;
+    }
+}
+
+.logo{
+        /* background-color: red; */
+        /* padding: min(1em, 1%); */
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        box-sizing: border-box;
+        text-align: center;
+        img{
+            max-width: min(25%,100px);
+            height: auto;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+        }
+        h4{
+            margin: 0px;
+            text-align: center;
+            font-size: clamp(1.1rem, calc(0.5vw + 0.5rem), 0.7rem);
+        }
+    }
+.main_content{
+    height: 83dvh;
+    width: 90%;
+    margin: auto;
+    margin-top: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+    box-sizing: border-box;
+}

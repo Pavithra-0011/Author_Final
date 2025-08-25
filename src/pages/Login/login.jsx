@@ -50,8 +50,6 @@ function LoginPage() {
   }
 };
 
-
-
   useEffect(() => {
     if (message) {
       const timer = setTimeout(() => {

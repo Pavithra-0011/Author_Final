@@ -1,0 +1,18 @@
+.Display_container{
+    height: 100%;
+    width: 100%;
+    /* background-color: red; */
+    border-radius: 20px;
+    padding: min(1rem,4%);
+    box-sizing: border-box;
+    overflow: scroll;
+}
+.cards{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: fit-content;
+    width: fit-content;
+    flex-wrap: wrap;
+    gap: 2rem;
+}

@@ -1,9 +1,9 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import html2canvas from "html2canvas";
-import { useRef } from 'react'
 import { SketchPicker } from "react-color";
 import { useDispatch } from "react-redux";
+import axios from 'axios';
 import postData from '../../Redux/action/action.jsx'
 import './upload.css'
 
@@ -15,7 +15,9 @@ function UploadBook() {
     const [bgColor, setBgColor] = useState("#d3d3d3");
     const [showPicker, setShowPicker] = useState(false);
     const [bgImage, setBgImage] = useState(null);
+    const [aiLoading, setAiLoading] = useState(false);
     const fileInputRef = useRef(null);
+    // const coverRef = useRef(null);
 
 
     const [data, setData] = useState({
@@ -25,6 +27,7 @@ function UploadBook() {
         price: 0,
         description: '',
         pdf: null,
+        image:null,
         date: new Date()
     })
     
@@ -92,17 +95,100 @@ function UploadBook() {
     }));
   };
   
-   const handleSubmit = (e) => {
-    e.preventDefault();
-    const file = data.pdf;
+   const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (!file) {
+   if (!data.title.trim()) {
+    alert("Title is required");
+    return;
+  }
+   if (!data.author.trim()) {
+    alert("Author is required");
+    return;
+  }
+  if (!data.genre.trim()) {
+    alert("Genre is required");
+    return;
+  }
+  if (!data.price || isNaN(data.price) || data.price <= 0) {
+    alert("Price must be greater than 0");
+    return;
+  }
+  if (!data.description.trim() || data.description.length < 10) {
+    alert("Description must be at least 10 characters");
+    return;
+  }
+  if (!data.pdf) {
     alert("Please select a PDF file");
     return;
   }
-    dispatch(postData({ data, file }));
-    console.log("Final Data:", data);
-  };
+  if (data.pdf.size > 20 * 1024 * 1024) { // 20MB limit
+    alert("PDF must be less than 20MB");
+    return;
+  }
+  if (data.pdf.type !== "application/pdf") {
+    alert("Only PDF files are allowed");
+    return;
+  }
+
+  try {
+    // Capture cover before submitting
+    if (coverRef.current) {
+      const canvas = await html2canvas(coverRef.current);
+      const imageData = canvas.toDataURL("image/png");
+
+      setData((prev) => ({
+        ...prev,
+        image: imageData
+      }));
+
+      dispatch(postData({ data: { ...data, image: imageData }, file: data.pdf }));
+      console.log("Final Data:", { ...data, image: imageData });
+      
+    } else {
+      dispatch(postData({ data, file: data.pdf }));
+      console.log("Final Data (without image):", data);
+    }
+    setData({
+      title: "",
+      author: "",
+      genre: "",
+      price: 0,
+      description: "",
+      pdf: null,
+      image: null,
+      date: new Date(),
+    });
+
+    setBgImage(null);
+    setBgColor("#d3d3d3");
+    setFont("Arial");
+    setPosition("");
+  } catch (err) {
+    console.error("Error capturing cover:", err);
+  }
+};
+
+
+  const handleGenerateDescription = async () => {
+  if (!data.title || !data.genre) {
+    alert("Please enter Title and Genre first");
+    return;
+  }
+  try {
+    setAiLoading(true);
+    const res = await axios.post(
+      "https://author-book-u7or.onrender.com/ai/generate-description",
+      { title: data.title, genre: data.genre }
+    );
+    setData(prev => ({ ...prev, description: res.data.description || "" }));
+  } catch (e) {
+    console.error(e);
+    alert("Failed to generate description");
+  } finally {
+    setAiLoading(false);
+  }
+};
 
   return (
    <>
@@ -223,7 +309,7 @@ function UploadBook() {
       <div className='description_box'>
         <div className='ip_box'>
           <textarea placeholder='Description' type='text' name='description' value={data.description} onChange={handleChange}/>
-          <button className='common_button' style={{marginTop:'10px'}}>TRY AI CAPTION</button>
+          <button className='common_button' style={{marginTop:'10px'}} onClick={handleGenerateDescription}>TRY AI CAPTION</button>
         </div>
       </div>
        

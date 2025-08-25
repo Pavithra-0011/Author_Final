@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
-import book_logo from '../../assets/book_logo.png'
+import book_logo from '../../../public/assets/book_logo.png'
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import './layout.css'
 

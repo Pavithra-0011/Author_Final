@@ -2,7 +2,7 @@
     /* Responsive Background */
     height: 100dvh;
     max-width: 100dvw;
-    background-image: url("C:\Users\HP\Desktop\Book_Author\author\src\assets\login_bg.jpg");
+    background-image: url("/public/assets/login_bg.jpg");
     background-size: cover;
     object-fit: cover;
     background-repeat: no-repeat;

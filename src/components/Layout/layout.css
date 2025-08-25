@@ -2,7 +2,7 @@
     height: 100dvh;
     width: 100dvw;
     padding: min(1em, 3%);
-    background-image: url("C:\Users\HP\Desktop\Book_Author\author\src\assets\Inner_Bg.jpg");
+    background-image: url("/public/assets/Inner_Bg.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;

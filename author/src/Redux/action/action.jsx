@@ -9,9 +9,9 @@ const postData = createAsyncThunk(
       formData.append("title", data.title);
       formData.append("author", data.author);
       formData.append("genre", data.genre);
-      formData.append("price", data.price);
+      formData.append("price", data.price?.toString() || "0");
       formData.append("description", data.description);
-      formData.append("pdf", file); 
+      formData.append("pdf_file", file); 
 
       
       const res = await axios.post(

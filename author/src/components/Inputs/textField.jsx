@@ -6,12 +6,12 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 // import InputAdornment from '@mui/material/InputAdornment';
 // import FormControl from '@mui/material/FormControl';
 
-function TextFieldComponent({label,icon, boxWidth}) {
+function TextFieldComponent({label,icon, boxWidth, value, onChange}) {
   return (
     <>
     <Box sx={{ display: 'flex', alignItems: 'flex-end', width: {boxWidth}}}>
        {icon}
-      <TextField id="input-with-sx" label={label} fullWidth variant="standard" sx={{fontSize: "clamp(0.2rem, calc(2vw + 1rem), 1rem)"}} />
+      <TextField id="input-with-sx" label={label} fullWidth variant="standard" sx={{fontSize: "clamp(0.2rem, calc(2vw + 1rem), 1rem)"}} value={value} onChange={onChange} />
     </Box>
     </>
   )

@@ -21,8 +21,8 @@ function LoginPage() {
   const navigate = useNavigate();
 
   const users = [
-    { name: "user1", password: "pass1" },
-    { name: "user2", password: "pass2" }
+    { name: "Pavithra Sivakumar", password: "pass123" },
+    { name: "Author2", password: "pass222" }
   ];
 
   const handleLoginTypeChange = () =>{

@@ -163,7 +163,7 @@ function UploadBook() {
   }
 
   try {
-    // Capture cover before submitting
+    
     if (coverRef.current) {
       const canvas = await html2canvas(coverRef.current);
       const imageData = canvas.toDataURL("image/png");
@@ -201,6 +201,8 @@ function UploadBook() {
     setBgColor("#d3d3d3");
     setFont("Arial");
     setPosition("");
+
+    alert("Book Successfully Uploaded")
   } catch (err) {
     console.error("Error capturing cover:", err);
   }
@@ -244,7 +246,7 @@ function UploadBook() {
              <div className='' style={{textAlign:"center", fontSize:'20px', height:'80%',...(positionStyles[position] || {})}}>
                 <p style={{fontFamily:font, fontWeight:'700', fontSize:'min(2em, 30px)' }}>Title</p></div>
              <div style={{textAlign:"center",display:'flex', justifyContent:'center', alignItems:'center', fontSize:'min(1.2rem, 30px)',height:'20%',backgroundColor: bgColor}}>
-                <p>author</p>       
+                <p>{data.author}</p>       
              </div>
            </div>
            <div className='button_cov'>

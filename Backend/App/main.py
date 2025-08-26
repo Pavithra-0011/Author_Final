@@ -4,8 +4,7 @@ from App.routes.author_route import router as author_router
 from App.routes.book_route import router as book_router
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-# import openai
-# from App.config import OPENAI_API_KEY
+
 
 app = FastAPI(title="Book Author API")
 
@@ -39,8 +38,7 @@ app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 app.include_router(author_router)
 app.include_router(book_router)
 
-# Set OpenAI API key
-# openai.api_key = OPENAI_API_KEY
+
 
 @app.get("/")
 def root():

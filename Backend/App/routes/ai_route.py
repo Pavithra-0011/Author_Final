@@ -1,12 +1,9 @@
 # App/routes/ai_route.py
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from openai import OpenAI
-from App.config import OPENAI_API_KEY
 
 router = APIRouter(prefix="/ai", tags=["AI"])
 
-client = OpenAI(api_key=OPENAI_API_KEY)
 
 class BookPrompt(BaseModel):
     title: str

@@ -5,7 +5,7 @@ from App.routes.book_route import router as book_router
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 # import openai
-from App.config import OPENAI_API_KEY
+# from App.config import OPENAI_API_KEY
 
 app = FastAPI(title="Book Author API")
 

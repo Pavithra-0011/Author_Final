@@ -10,7 +10,7 @@ function DashboardPage() {
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"))
     const username = loggedInUser?.username
 
-    fetch("https://author-book-u7or.onrender.com/books/")
+    fetch("https://author-final-1.onrender.com/books/")
       .then((res) => res.json())
       .then((data) => {
         let allBooks = []

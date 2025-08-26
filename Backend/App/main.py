@@ -10,13 +10,18 @@ from App.config import OPENAI_API_KEY
 app = FastAPI(title="Book Author API")
 
 # --- CORS setup ---
+# origins = [
+#     "http://localhost:5173",
+#     "http://localhost:5174",
+#     "http://localhost:5175",
+#     "https://author-final-8kqi.vercel.app",
+#     "https://author-book-rj6o.vercel.app",
+# ]
+
 origins = [
-    "http://localhost:5173",
-    "http://localhost:5174",
-    "http://localhost:5175",
-    "https://author-final-8kqi.vercel.app",
-    "https://author-book-rj6o.vercel.app",
+    "*"
 ]
+
 
 app.add_middleware(
     CORSMiddleware,

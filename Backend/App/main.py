@@ -61,23 +61,6 @@ class BookRequest(BaseModel):
 async def submit_book(book: Book):
     return {"message": "Book submitted successfully", "data": book}
 
-# --- Generate AI description ---
-# @app.post("/generate-description")
-# async def generate_description(book: BookRequest):
-#     try:
-#         response = openai.chat.completions.create(
-#             model="gpt-4o-mini",  # or "gpt-4o" if you have access
-#             messages=[
-#                 {"role": "system", "content": "You are a creative book blurb generator."},
-#                 {"role": "user", "content": f"Generate an engaging book description for a {book.genre} book titled '{book.title}'."}
-#             ],
-#             max_tokens=150
-#         )
-#         description = response.choices[0].message.content
-#         return {"description": description}
-#     except Exception as e:
-#         raise HTTPException(status_code=500, detail=str(e))
-
 # --- Run server locally ---
 if __name__ == "__main__":
     import uvicorn

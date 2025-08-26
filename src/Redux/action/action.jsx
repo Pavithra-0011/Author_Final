@@ -15,7 +15,9 @@ const postData = createAsyncThunk(
       // formData.append("back_cover", data.image)
       // formData.append("published_date", publishedDate);
       if (data.image) {
-        formData.append("back_cover", data.image);
+        const res = await fetch(data.image);
+        const blob = await res.blob();
+        formData.append("back_cover", blob, "back_cover.png");
       }
 
       if (data.date) {
